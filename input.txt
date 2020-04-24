@@ -1,0 +1,31 @@
+4
+3
+A Y Z X
+B Z Y X
+C X Z Y
+X B A C
+Y C B A
+Z A C B
+3
+S R P Q
+T Q R P
+V R Q P
+P S T V
+Q T V S
+R S V T
+3
+Joey Rachel Monica Phoebe
+Ross Rachel Phoebe Monica
+Chandler Monica Rachel Phoebe
+Monica Chandler Joey Ross
+Rachel Ross Joey Chandler
+Phoebe Joey Ross Chandler
+4
+A Q S P R
+B R P S Q
+C Q R P S
+D S P R Q
+P B A D C
+Q D C A B
+R A D C B
+S B A D C

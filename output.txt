@@ -1,0 +1,21 @@
+stable marriages for Case#1
+X	C
+Y	A
+Z	B
+-----------------------------
+stable marriages for Case#2
+P	V
+Q	T
+R	S
+-----------------------------
+stable marriages for Case#3
+Monica	Chandler
+Rachel	Ross
+Phoebe	Joey
+-----------------------------
+stable marriages for Case#4
+P	D
+Q	C
+R	B
+S	A
+-----------------------------
