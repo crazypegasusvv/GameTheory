@@ -1,0 +1,24 @@
+Cherry has no previous requests 
+Fiona has no previous requests 
+Berry has no previous requests 
+Evelyn has no previous requests 
+Cherry has request from Alie
+	Cherry prefers Evelyn to Alie
+Dimple has no previous requests 
+Evelyn has request from Dimple
+	Evelyn prefers Dimple to Fiona
+Alie has no previous requests 
+
+
+Reduced lists:
+Alie  :  ['Dimple', 'Berry', 'Fiona']
+Berry  :  ['Fiona', 'Evelyn', 'Dimple', 'Alie', 'Cherry']
+Cherry  :  ['Berry', 'Dimple', 'Evelyn']
+Dimple  :  ['Evelyn', 'Berry', 'Cherry', 'Fiona', 'Alie']
+Evelyn  :  ['Cherry', 'Berry', 'Dimple']
+Fiona  :  ['Alie', 'Dimple', 'Berry']
+
+Stable Roommates:
+Alie  ---  Fiona
+Berry  ---  Dimple
+Cherry  ---  Evelyn
