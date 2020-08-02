@@ -52,14 +52,14 @@ class Person(object):
 
 def justify_req(people, person, requester):
     if people[person].get_requester() is None:
-        print('---> ' + person + ' has no previous requests <---')
+        print(person + ' has no previous requests ')
         people[requester].propose_to(person)
         people[person].add_request(requester)
     else:
         prev_requester = people[person].get_requester()
-        print('---> ' + person + ' has request from ' + prev_requester + ' <---')
+        print(person + ' has request from ' + prev_requester)
         if people[person].compare(requester, prev_requester):
-            print('.... ' + person + ' prefers ' + requester + ' to ' + prev_requester + ' ....')
+            print('\t' + person + ' prefers ' + requester + ' to ' + prev_requester)
             people[requester].propose_to(person)
             people[person].add_request(requester)
             people[prev_requester].propose_to(None)
@@ -68,7 +68,7 @@ def justify_req(people, person, requester):
             if next_pref is not None:
                 people = justify_req(people, next_pref, prev_requester)
         else:
-            print('.... ' + person + ' prefers ' + prev_requester + ' to ' + requester + ' ....')
+            print('\t' + person + ' prefers ' + prev_requester + ' to ' + requester)
             people[requester].remove_preference(person)
             people[requester].propose_to(None)
             next_pref = people[requester].get_next_preference()
@@ -137,7 +137,6 @@ for pref in preferences_list:
         tenant_prefer.append(each)
     persons[tenant].add_preferences(tenant_prefer)
 
-print('\n')
 persons = phase_one(persons)
 print('\n')
 
