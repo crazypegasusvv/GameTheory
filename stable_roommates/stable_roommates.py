@@ -1,5 +1,4 @@
 # stable roommate problem
-# To-Do : algorithm phase 1 and phase 2
 
 tenants = ['Alie', 'Berry', 'Cherry', 'Dimple', 'Evelyn', 'Fiona']
 preferences_list = [['Alie', 'Cherry', 'Dimple', 'Berry', 'Fiona', 'Evelyn'],
@@ -20,6 +19,9 @@ class Person(object):
     def get_name(self):
         return self.name
 
+    def get_preferences(self):
+        return self.preferences
+
     def get_next_preference(self):
         if len(self.preferences) == 0:
             return None
@@ -32,7 +34,8 @@ class Person(object):
         self.preferences = preferences
 
     def remove_preference(self, name):
-        self.preferences.remove(name)
+        if name in self.preferences:
+            self.preferences.remove(name)
 
     def get_requester(self):
         return self.requester
@@ -81,6 +84,48 @@ def phase_one(people):
     return people
 
 
+def phase_two(people):
+    print('Reduced lists:')
+    for ech in people:
+        print(ech, ' : ', people[ech].get_preferences())
+    cycle_exists = True
+    match_exists = True
+    while cycle_exists:
+        starter = None
+        for mate in people.keys():
+            mate_prefs = people[mate].get_preferences()
+            if len(mate_prefs) > 1 and starter is None:
+                starter = mate
+            elif len(mate_prefs) == 0:
+                match_exists = False
+                break
+        if starter is None:
+            cycle_exists = False
+        else:
+            p_set = [starter]
+            follower = people[starter].get_preferences()[1]
+            q_set = [follower]
+            next_mate = people[follower].get_preferences()[-1]
+            while next_mate not in p_set:
+                p_set.append(next_mate)
+                q_set.append(people[next_mate].get_preferences()[1])
+                next_mate = people[q_set[-1]].get_preferences()[-1]
+            p_set.append(next_mate)
+            for pos in range(len(q_set)):
+                people[q_set[pos]].remove_preference(p_set[pos + 1])
+                people[p_set[pos + 1]].remove_preference(q_set[pos])
+    if not match_exists:
+        print('\nNo stable matching possible in this case!')
+    else:
+        num_pairs = len(people.keys())/2
+        print('\nStable Roommates:')
+        for ech in people:
+            num_pairs -= 1
+            print(ech, ' --- ', people[ech].get_preferences()[0])
+            if num_pairs == 0:
+                break
+
+
 persons = {}
 for tenant in tenants:
     persons[tenant] = Person(tenant)
@@ -92,12 +137,19 @@ for pref in preferences_list:
         tenant_prefer.append(each)
     persons[tenant].add_preferences(tenant_prefer)
 
-phase_one_people = phase_one(persons)
+print('\n')
+persons = phase_one(persons)
+print('\n')
 
-for pers in phase_one_people.keys():
-    perst = phase_one_people[pers]
-    if perst.get_proposal() is not None:
-        print(perst.get_name(), perst.get_proposal(), perst.get_requester())
+for persn in persons.keys():
+    if persons[persn].get_proposal() is not None:
+        prefs = persons[persn].get_preferences()
+        last_index = prefs.index(persons[persn].get_requester()) + 1
+        for rej in prefs[last_index:]:
+            persons[persn].remove_preference(rej)
+            persons[rej].remove_preference(persn)
     else:
         print('No stable matching possible in this case!')
         break
+
+phase_two(persons)
